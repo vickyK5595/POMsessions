@@ -41,6 +41,10 @@ public class DriverFactory {
 	public WebDriver initDriver(Properties prop) {
 
 		String browserName = prop.getProperty("browser");
+		
+//		if(System.getenv(browserName) != null){
+//			browserName = System.getenv(browserName);
+//		}
 
 		System.out.println("browser name is : " + browserName);
 		optionsManager = new OptionsManager(prop);
