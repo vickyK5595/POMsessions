@@ -42,9 +42,9 @@ public class DriverFactory {
 
 		String browserName = prop.getProperty("browser");
 		
-//		if(System.getenv(browserName) != null){
-//			browserName = System.getenv(browserName);
-//		}
+		if(System.getenv(browserName) != null){
+			browserName = System.getenv(browserName);
+		}
 
 		System.out.println("browser name is : " + browserName);
 		optionsManager = new OptionsManager(prop);
