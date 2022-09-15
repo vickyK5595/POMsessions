@@ -53,7 +53,7 @@ public class LoginPage {
 	}
 
 	public SearchResultsPage performSearch(String name) {
-		System.out.println("product name : " + name);
+		System.out.println("product name :  " + name);
 		AccountsPage accPage = new AccountsPage(driver);
 		return accPage.doSearch(name);
 
