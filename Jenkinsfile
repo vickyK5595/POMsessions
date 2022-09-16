@@ -1,62 +1,45 @@
-pipeline 
-{
-    agent any
+pipeline{
     
-    tools{
-    	maven 'maven'
-        }
-
-    stages 
-    {
-
-        stage("Deploy to QA"){
-            steps{
-                echo("deploy to qa")
-            }
-        }
-                
-        stage('Regression Automation Test') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    git 'https://github.com/vickyK5595/POMsessions.git'
-                    sh "mvn clean install"
-                    
-                }
-            }
-        }
-                
-     
-        stage('Publish Allure Reports') {
-           steps {
-                script {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: '/allure-results']]
-                    ])
-                }
-            }
-        }
+   agent any 
+    
+    stages{
         
-        
-        stage('Publish Extent Report'){
+        stage("Build"){
             steps{
-                     publishHTML([allowMissing: false,
-                                  alwaysLinkToLastBuild: false, 
-                                  keepAll: false, 
-                                  reportDir: 'reports', 
-                                  reportFiles: 'TestExecutionReport.html', 
-                                  reportName: 'HTML Extent Report', 
-                                  reportTitles: ''])
+            echo("build the project")
             }
         }
-        
-        stage("Deploy to PROD"){
+        stage("Deploy on Dev"){
             steps{
-                echo("deploy to PROD")
+            echo("Deploy on Dev")
+            }
+        }
+        stage("Deploy on QA"){
+            steps{
+            echo("Deploy on QA")
+            }
+        }
+        stage("Run regression tests on QA"){
+            steps{
+            echo("Run regression tests on QA")
+            }
+        }
+        stage("Deploy on Stage"){
+            steps{
+            echo("Deploy on Stage")
+            }
+        }
+        stage("Run Sanity test on Stage"){
+            steps{
+            echo("Run Sanity test on Stage")
+            }
+        }
+        stage("Deploy on PROD env"){
+            steps{
+            echo("Deploy on PROD env")
             }
         }
     }
+    
+    
 }
